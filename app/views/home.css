@@ -1,0 +1,5 @@
+@import '~antd/dist/antd.css';
+
+.ant-list{
+    padding: 10px;
+}

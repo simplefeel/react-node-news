@@ -1,0 +1,11 @@
+{
+    "presets": [
+        "react",
+        "env",
+        "es2015",
+        "stage-0"
+    ],
+    "plugins": [
+        ["import", { "libraryName": "antd-mobile", "style": "css" }] 
+    ]
+}
