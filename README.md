@@ -1,6 +1,6 @@
 # React-News
 
-<div align=center>![](./news.gif)</div>
+<div align="center"><img src='./news.gif'/></div>
 
 ## 概览
 通过node.js创建的一个爬虫小实例，前端通过react渲染
