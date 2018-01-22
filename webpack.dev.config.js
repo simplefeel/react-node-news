@@ -96,12 +96,12 @@ module.exports = {
     devServer: {
         compress: true,
         port: 9000,
-        // proxy: {
-        //     '/': {
-        //         target: 'localhost:8080',
-        //         secure: false,
-        //     }
-        // },
+        proxy: {
+            '/news': {
+                target: 'http://127.0.0.1:8080',
+                secure: false,
+            }
+        },
     },
     devtool: 'inline',
 }

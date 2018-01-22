@@ -11,6 +11,7 @@ class Home extends Component {
             loadingMore: false,
             showLoadingMore: true,
             data: [],
+            pageSize: 2
         }
     }
     
@@ -18,7 +19,6 @@ class Home extends Component {
         axios
         .get('/news')
         .then((res)=> {
-            console.log(res);
             this.setState({
                 loading: false,
                 data: res.data,
@@ -28,6 +28,35 @@ class Home extends Component {
             console.log(error);
         });
     }
+
+    onLoadMore = () => {
+        let {pageSize} = this.state;
+        pageSize++;
+        this.setState({
+            loadingMore: true,
+        });
+        this.getData((res) => {
+            const data = this.state.data.concat(res);
+            this.setState({
+                data,
+                loadingMore: false,
+                pageSize
+            });
+        });
+    }
+
+    getData = (callback) => {
+        const {pageSize} = this.state;
+        axios
+        .get(`/news/${pageSize}`)
+        .then((res)=> {
+            callback(res.data)
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+      }
+
     render () {
         const { loading, loadingMore, showLoadingMore, data } = this.state;
         const loadMore = showLoadingMore ? (
@@ -44,11 +73,11 @@ class Home extends Component {
                 loadMore={loadMore}
                 dataSource={data}
                 renderItem={item => (
-                <List.Item actions={[<a>edit</a>, <a>more</a>]}>
+                <List.Item>
                     <List.Item.Meta
                     avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-                    title={<a href={item.href} target="_blank">{item.title}</a>}
-                    description="我的数据是爬来的"
+                    title={<a href={item.href}>{item.title}</a>}
+                    description={item.time}
                     />
                 </List.Item>
                 )}
